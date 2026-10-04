@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Andy Wang — Software Engineer</title>
+<meta name="description" content="Computer Science at Georgia Tech. I build multiplayer games and AI tooling, including a Roblox strategy game played 3M+ times.">
+<meta name="theme-color" content="#f6f7f5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f7f5;
+  --surface:#ffffff;
+  --ink:#141d1a;
+  --muted:#5d6b65;
+  --rule:#dfe4e0;
+  --accent:#0e7c66;
+  --accent-deep:#0a5c4c;
+  --accent-soft:#dcefe8;
+
+  --display:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+
+  --gap:clamp(1.25rem,3vw,2.5rem);
+  --page:1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:var(--page);margin:0 auto;padding:0 var(--gap)}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:0 var(--gap)}
+.nav-inner{
+  display:flex;align-items:center;gap:1.5rem;
+  width:100%;max-width:var(--page);
+  padding:.55rem .6rem .55rem 1rem;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(14px);
+  border:1px solid var(--rule);
+  border-radius:999px;
+}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-weight:600;letter-spacing:-.02em;text-decoration:none;font-size:1rem}
+.brand .avatar{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--accent);color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.02em}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:.25rem}
+.nav-links a{
+  text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;
+  padding:.45rem .8rem;border-radius:999px;transition:color .18s,background .18s;
+}
+.nav-links a:hover{color:var(--ink);background:var(--accent-soft)}
+.nav-links .resume{background:var(--accent);color:#fff}
+.nav-links .resume:hover{background:var(--accent-deep);color:#fff}
+
+/* ---------- placeholders ---------- */
+.ph{
+  position:relative;
+  background:
+    repeating-linear-gradient(-45deg,rgba(14,124,102,.055) 0 10px,transparent 10px 20px),
+    var(--accent-soft);
+  border:1px dashed rgba(14,124,102,.4);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent-deep);
+  font-size:.78rem;font-weight:500;letter-spacing:.01em;
+  text-align:center;padding:1rem;
+}
+.ph.round{border-radius:50%}
+
+/* ---------- hero ---------- */
+.hero{padding:150px 0 0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:calc(var(--gap) * 1.4);align-items:center}
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(3rem,8.5vw,6.4rem);
+  line-height:.92;letter-spacing:-.045em;font-weight:600;
+  margin:0 0 1.1rem;
+}
+.hero h1 .line2{display:block;color:var(--accent)}
+.hero p.lede{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--muted);max-width:52ch;margin:0 0 1.8rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:500;font-size:.95rem;
+  padding:.7rem 1.35rem;border-radius:999px;border:1px solid var(--ink);
+  transition:background .18s,color .18s,border-color .18s;
+}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent)}
+.btn.ghost{border-color:var(--rule);background:var(--surface)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.portrait{aspect-ratio:4/5;border-radius:14px}
+
+/* stats */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:clamp(3rem,6vw,5rem);
+  border-top:1px solid var(--rule);
+}
+.stat{
+  display:flex;flex-direction:column;gap:.5rem;
+  padding:1.6rem 1.75rem;border-right:1px solid var(--rule);
+}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:0;padding-right:0}
+.stat b{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(1.7rem,3.6vw,2.5rem);letter-spacing:-.03em;line-height:1.1;
+}
+.stat span{color:var(--muted);font-size:.9rem;line-height:1.45;max-width:24ch}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:96px}
+.block{padding:clamp(4.5rem,9vw,7.5rem) 0 0}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:2.2rem}
+.head h2{
+  font-family:var(--display);font-weight:600;letter-spacing:-.035em;
+  font-size:clamp(1.9rem,4.2vw,2.9rem);margin:0;line-height:1;
+}
+.head p{margin:0;color:var(--muted);font-size:.95rem;max-width:38ch}
+
+/* ---------- projects ---------- */
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
+.card{
+  background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+  padding:.75rem .75rem 1.35rem;text-decoration:none;
+  display:flex;flex-direction:column;
+  transition:border-color .2s,box-shadow .2s;
+}
+a.card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.card .ph{aspect-ratio:16/10;border-radius:11px}
+.card .shot{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:11px;background:var(--accent-soft)}
+.card-body{padding:1.15rem .8rem 0}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.35rem;letter-spacing:-.02em;margin:0 0 .35rem}
+.card .when{color:var(--muted);font-size:.82rem;margin:0 0 .55rem}
+.card p.what{margin:0 0 1rem;color:var(--muted);font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto}
+.tag{border:1px solid var(--rule);border-radius:999px;padding:.28rem .7rem;font-size:.78rem;color:var(--muted)}
+.card.empty{border-style:dashed;background:transparent}
+.card.empty h3{color:var(--accent-deep)}
+
+/* ---------- experience ---------- */
+.xp{border-top:1px solid var(--rule)}
+.xp-row{
+  display:grid;grid-template-columns:56px minmax(0,1fr) auto;
+  gap:1.25rem;align-items:center;
+  padding:1.35rem .4rem;border-bottom:1px solid var(--rule);
+  transition:background .18s;
+}
+.xp-row:hover{background:var(--surface)}
+.xp-row .ph{width:56px;height:56px;border-radius:12px;font-size:.6rem;line-height:1.2}
+.xp-row .logo{width:56px;height:56px;border-radius:12px;border:1px solid var(--rule);background:#fff;object-fit:contain}
+.xp-row h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin:0}
+.xp-row .role{color:var(--muted);font-size:.95rem}
+.xp-row .note{color:var(--muted);font-size:.87rem;margin-top:.3rem;max-width:62ch}
+.xp-row .dates{color:var(--muted);font-size:.85rem;white-space:nowrap}
+
+/* ---------- stack ---------- */
+.stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem}
+.stack-col{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:1.4rem}
+.stack-col h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin:0 0 .9rem;letter-spacing:-.01em}
+.stack-col ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.stack-col li{border:1px solid var(--rule);border-radius:999px;padding:.3rem .75rem;font-size:.83rem;color:var(--muted)}
+
+/* ---------- contact ---------- */
+.contact{
+  margin-top:clamp(4.5rem,9vw,7.5rem);
+  background:var(--surface);border:1px solid var(--rule);border-radius:22px;
+  padding:clamp(2rem,5vw,3.5rem);
+}
+.contact h2{font-family:var(--display);font-weight:600;letter-spacing:-.035em;font-size:clamp(2rem,4.5vw,3rem);margin:0 0 2rem;line-height:1}
+.contact p{margin:0 0 2rem;color:var(--muted);max-width:46ch}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.link{
+  display:block;text-decoration:none;border:1px solid var(--rule);border-radius:13px;
+  padding:1rem 1.15rem;transition:border-color .18s,background .18s;
+}
+.link:hover{border-color:var(--accent);background:var(--accent-soft)}
+.link small{display:block;color:var(--muted);font-size:.8rem;margin-bottom:.15rem}
+.link b{font-weight:500;font-size:1rem;word-break:break-word}
+
+footer{padding:3rem 0 4rem;color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+/* ---------- entrance (one orchestrated moment) ---------- */
+.reveal{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.22,.8,.3,1) forwards}
+.reveal:nth-child(2){animation-delay:.08s}
+.hero .lede{animation-delay:.14s}
+.hero-cta{animation-delay:.2s}
+.hero .portrait{animation-delay:.26s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:2rem}
+  .portrait{max-width:280px}
+  .projects,.stack,.links{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr;border-top:0}
+  .stat{border-right:0;border-top:1px solid var(--rule);padding:1.25rem 0}
+  .xp-row{grid-template-columns:44px minmax(0,1fr);row-gap:.5rem}
+  .xp-row .ph,.xp-row .logo{width:44px;height:44px}
+  .xp-row .dates{grid-column:2}
+  .nav-links a:not(.resume){display:none}
+}
+@media (max-width:520px){
+  .hero{padding-top:120px}
+  body{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="avatar" aria-hidden="true">AW</span>
+      Andy Wang
+    </a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#stack">Stack</a>
+      <a class="resume" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1 class="reveal">Andy Wang</h1>
+          <p class="lede reveal">Computer science at Georgia Tech, class of 2028. I build applied AI systems and production software: LLM-based quality control for clinical deliverables at Bristol Myers Squibb, and a server-authoritative multiplayer game with 50K daily players.</p>
+          <div class="hero-cta reveal">
+            <a class="btn primary" href="#projects">See the projects</a>
+            <a class="btn ghost" href="mailto:awang760@gatech.edu">Email me</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <b>3M+</b>
+          <span>Plays across shipped games</span>
+        </div>
+        <div class="stat">
+          <b>50K</b>
+          <span>Daily active players at peak</span>
+        </div>
+        <div class="stat">
+          <b>35%</b>
+          <span>Manual QC time removed at BMS</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="block">
+    <div class="wrap">
+      <div class="head">
+        <h2>Projects</h2>
+        <p>Things I designed, shipped, and kept running.</p>
+      </div>
+
+      <div class="projects">
+
+        <a class="card" href="https://www.roblox.com/games/95799001413021/Build-A-Barrier" target="_blank" rel="noopener">
+          <img class="shot" src="build-a-barrier.jpg" alt="A Build A Barrier match in progress: two players on a 9×9 grid with fences placed between squares" loading="lazy" width="1114" height="696">
+          <div class="card-body">
+            <h3>Build A Barrier</h3>
+            <p class="when">May 2026 – present · Roblox</p>
+            <p class="what">A multiplayer wall-and-path strategy game on a 9×9 grid. Matchmaking, timers, and move validation all run on the server, and BFS pathfinding rejects any wall that would trap a player. Past 3M plays and $1K a month in revenue.</p>
+            <div class="tags">
+              <span class="tag">Luau</span><span class="tag">Roblox Studio</span>
+              <span class="tag">DataStoreService</span><span class="tag">RemoteEvents</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="https://devpost.com/software/presentai" target="_blank" rel="noopener">
+          <img class="shot" src="plum.jpg" alt="Plum feedback view: a speech timeline color-coded by agent, with a generated clip showing an improved gesture" loading="lazy" width="747" height="467">
+          <div class="card-body">
+            <h3>Plum</h3>
+            <p class="when">Nov 2025 · AI public speaking coach</p>
+            <p class="what">Upload a recording and four Gemini agents score speech, gesture, and content, then merge into one timeline that marks the weak moments. Each flagged moment gets a generated clip showing the better version.</p>
+            <div class="tags">
+              <span class="tag">FastAPI</span><span class="tag">Gemini 2.5 Pro</span>
+              <span class="tag">Veo 3</span><span class="tag">FFmpeg</span><span class="tag">React</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="https://devpost.com/software/musketeer-8qd3lu" target="_blank" rel="noopener">
+          <img class="shot" src="musketeer.jpg" alt="Musketeer graph view: teams drawn as clusters, with lines showing who has talked and who does similar work" loading="lazy" width="1600" height="1000">
+          <div class="card-body">
+            <h3>Musketeer</h3>
+            <p class="when">Sep 2026 · HackGT 13 · Team of four</p>
+            <p class="what">When a task lands in email or Slack, Musketeer pulls out the skills it needs and pings coworkers who recently solved something similar. Managers get a live connection map that flags isolated employees and suggests groups.</p>
+            <div class="tags">
+              <span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">PostgreSQL + pgvector</span>
+              <span class="tag">Contriever</span><span class="tag">Slack Bolt</span><span class="tag">D3.js</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="card">
+          <img class="shot" src="subspective.png" alt="Three Subspective screens: the title menu, a submarine dodging an iceberg, and a boat steering away from a falling obstacle" loading="lazy" width="1600" height="1000">
+          <div class="card-body">
+            <h3>Subspective</h3>
+            <p class="when">Jul 2025 · Mobile game</p>
+            <p class="what">A pixel-art Android game where you pilot a submarine and a boat around icebergs and falling hazards. Over 5,000 lines of C# covering collision detection and obstacle generation, with all art drawn in one fixed palette over parallax-scrolling backgrounds.</p>
+            <div class="tags">
+              <span class="tag">C#</span><span class="tag">Unity</span><span class="tag">Unity 2D Physics</span><span class="tag">Android</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="block">
+    <div class="wrap">
+      <div class="head">
+        <h2>Experience</h2>
+        <p>Four teams, from underwater robotics to clinical AI.</p>
+      </div>
+
+      <div class="xp">
+        <div class="xp-row">
+          <img class="logo" src="logo-bms.png" alt="Bristol Myers Squibb logo" width="56" height="56">
+          <div>
+            <h3>Bristol Myers Squibb</h3>
+            <div class="role">Applied AI Engineering Intern</div>
+            <p class="note">Built an automated QC tool for clinical deliverables that pairs LLM review with rule-based validation, evaluated on 45+ documents with planted errors, where 96% of reviewed outputs were correct. It cut manual review time by 35%.</p>
+          </div>
+          <div class="dates">Jun – Aug 2026</div>
+        </div>
+
+        <div class="xp-row">
+          <img class="logo" src="logo-rubbl.png" alt="Rubbl logo" width="56" height="56">
+          <div>
+            <h3>Rubbl</h3>
+            <div class="role">Software Engineer Intern</div>
+            <p class="note">Shipped an Angular financing calculator with live payment estimates, plus account workflows on Angular and .NET with RBAC and OIDC token refresh.</p>
+          </div>
+          <div class="dates">Sep 2025 – Apr 2026</div>
+        </div>
+
+        <div class="xp-row">
+          <img class="logo" src="logo-aigt.png" alt="AI@GT logo" width="56" height="56">
+          <div>
+            <h3>AI@GT</h3>
+            <div class="role">Applied Researcher</div>
+            <p class="note">Built an embodied agent in SAPIEN that completes simulated household tasks, using Google's RT-1 vision-language-action model and a BEHAVIOR-1K feedback loop.</p>
+          </div>
+          <div class="dates">Oct 2025 – Mar 2026</div>
+        </div>
+
+        <div class="xp-row">
+          <img class="logo" src="logo-mit.png" alt="MIT logo" width="56" height="56">
+          <div>
+            <h3>MIT Beaver Works</h3>
+            <div class="role">Autonomous Underwater Vehicle Intern</div>
+            <p class="note">Led a five-person team through the cohort's first full autonomous search-and-rescue run, with ROS2 navigation and a YOLO model that tripled detection range, from 2 to 6 feet.</p>
+          </div>
+          <div class="dates">Mar – Aug 2024</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" class="block">
+    <div class="wrap">
+      <div class="head">
+        <h2>Stack</h2>
+        <p>What I reach for, roughly in order of how often.</p>
+      </div>
+      <div class="stack">
+        <div class="stack-col">
+          <h3>Languages</h3>
+          <ul>
+            <li>Python</li><li>Luau</li><li>TypeScript</li><li>C#</li>
+            <li>JavaScript</li><li>C</li><li>Java</li>
+          </ul>
+        </div>
+        <div class="stack-col">
+          <h3>Frameworks</h3>
+          <ul>
+            <li>Angular</li><li>ASP.NET Core</li><li>FastAPI</li><li>React</li>
+            <li>Unity</li><li>PyTorch</li><li>OpenCV</li><li>ROS2</li>
+          </ul>
+        </div>
+        <div class="stack-col">
+          <h3>Cloud and tools</h3>
+          <ul>
+            <li>Roblox Studio</li><li>Azure AI Search</li><li>Azure Cosmos DB</li>
+            <li>Azure Pipelines</li><li>Git</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Contact info</h2>
+        <div class="links">
+          <a class="link" href="mailto:awang760@gatech.edu">
+            <small>Email</small><b>awang760@gatech.edu</b>
+          </a>
+          <a class="link" href="https://www.linkedin.com/in/andy-wang-503b73283/" target="_blank" rel="noopener">
+            <small>LinkedIn</small><b>andy-wang-503b73283</b>
+          </a>
+        </div>
+      </div>
+
+      <footer>
+        <span>© 2026 Andy Wang</span>
+        <span>Atlanta, GA</span>
+      </footer>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
