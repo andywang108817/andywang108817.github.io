@@ -223,6 +223,130 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.85rem;display:flex;just
   .hero{padding-top:120px}
   body{font-size:16px}
 }
+
+/* ---------- clickable cards ---------- */
+.card{position:relative;cursor:pointer}
+.card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.card-open{all:unset;cursor:pointer}
+.card-open::after{content:"";position:absolute;inset:0;border-radius:16px}
+.card-open:focus-visible{outline:none}
+.card-open:focus-visible::after{outline:2px solid var(--accent);outline-offset:3px}
+.card .card-body{flex:1;display:flex;flex-direction:column}
+.card .card-body .tags{margin-top:0}
+.card .open-hint{margin:auto 0 0;padding-top:1rem;font-size:.85rem;font-weight:500;color:var(--accent)}
+.card:hover .open-hint{color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- project panel ---------- */
+html.panel-open{overflow:hidden}
+.panel{
+  width:min(1040px,calc(100vw - 32px));max-width:none;
+  max-height:calc(100dvh - 32px);
+  padding:0;border:1px solid var(--rule);border-radius:22px;
+  background:var(--surface);color:var(--ink);
+  overflow:auto;overscroll-behavior:contain;
+}
+.panel::backdrop{background:rgba(20,29,26,.55);backdrop-filter:blur(3px)}
+.panel[open]{animation:panel-in .26s cubic-bezier(.22,.8,.3,1)}
+@keyframes panel-in{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+
+.panel-head{
+  position:sticky;top:0;z-index:3;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  padding:1.4rem 1.5rem 1.1rem;background:var(--surface);
+}
+.panel-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem .9rem}
+.panel h2{font-family:var(--display);font-weight:600;letter-spacing:-.03em;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.05;margin:0}
+.panel-links{display:flex;flex-wrap:wrap;gap:.45rem}
+.panel-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  text-decoration:none;font-size:.85rem;font-weight:500;
+  padding:.4rem .85rem;border-radius:999px;
+  border:1px solid var(--rule);color:var(--ink);background:var(--surface);
+  transition:border-color .18s,color .18s,background .18s;
+}
+.panel-link svg{width:13px;height:13px;flex:none}
+.panel-link.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.panel-link.primary:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+.panel-link:not(.primary):hover{border-color:var(--accent);color:var(--accent)}
+.panel-meta{margin:.45rem 0 0;color:var(--muted);font-size:.9rem}
+.panel-close{
+  flex:none;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer;transition:border-color .18s,background .18s;
+}
+.panel-close:hover{border-color:var(--accent);background:var(--accent-soft)}
+.panel-close svg{width:16px;height:16px}
+
+/* slider */
+.slider{position:relative;margin:0 1.5rem;border-radius:14px;overflow:hidden;background:var(--slide-bg,#eef1ef)}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.slide{
+  flex:0 0 100%;scroll-snap-align:center;
+  aspect-ratio:var(--ratio,16/10);max-height:64vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(.6rem,2.2vw,1.4rem);margin:0;
+}
+.slide img{width:100%;height:100%;object-fit:contain;border-radius:8px}
+.slider.pixel .slide img{image-rendering:pixelated;border-radius:0}
+.slide-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.92);color:#141d1a;
+  display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.12);transition:background .18s,opacity .18s;
+}
+.slide-nav:hover{background:#fff}
+.slide-nav:disabled{opacity:0;pointer-events:none}
+.slide-nav svg{width:18px;height:18px}
+.slide-nav.prev{left:12px}
+.slide-nav.next{right:12px}
+.slider.single .slide-nav{display:none}
+
+.slider-foot{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:.8rem 1.5rem 0;min-height:2.6rem}
+.caption{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5;max-width:70ch}
+.dots{display:flex;align-items:center;gap:.15rem;flex:none}
+.dot{width:24px;height:24px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rule);transition:background .18s,transform .18s}
+.dot[aria-current="true"]::before{background:var(--accent);transform:scale(1.25)}
+.dot:hover::before{background:var(--muted)}
+
+/* body */
+.panel-body{
+  display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:2rem 2.5rem;
+  padding:1.6rem 1.5rem 2rem;
+}
+.panel-text p{margin:0 0 1rem;max-width:64ch}
+.panel-text h3{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em;margin:1.6rem 0 .6rem}
+.panel-text ul{margin:0;padding-left:1.1rem;max-width:64ch}
+.panel-text li{margin:.4rem 0;color:var(--ink)}
+.panel-text li::marker{color:var(--accent)}
+.facts{align-self:start;background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:1.2rem 1.25rem}
+.facts dl{margin:0}
+.facts dt{font-size:.8rem;color:var(--muted);margin:1rem 0 .25rem}
+.facts dt:first-child{margin-top:0}
+.facts dd{margin:0;font-size:.95rem}
+.facts .numbers{display:grid;grid-template-columns:1fr 1fr;gap:.9rem .75rem;margin-top:.15rem}
+.facts .numbers b{display:block;font-family:var(--display);font-weight:600;font-size:1.35rem;letter-spacing:-.02em;line-height:1.15}
+.facts .numbers span{font-size:.8rem;color:var(--muted);line-height:1.35}
+.facts .tags{margin-top:.15rem}
+.facts .tag{background:var(--surface)}
+
+@media (max-width:760px){
+  .panel-body{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .panel{width:100vw;max-height:100dvh;height:100dvh;border-radius:0;border:0}
+  .panel-head{padding:1rem 1rem .9rem}
+  .slider{margin:0;border-radius:0}
+  .slide{aspect-ratio:var(--ratio-sm,var(--ratio,16/10))}
+  .slide-nav{width:36px;height:36px}
+  .slider-foot{padding:.75rem 1rem 0;flex-direction:column-reverse;gap:.35rem}
+  .panel-body{padding:1.25rem 1rem 2.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .track{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
@@ -285,57 +409,60 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.85rem;display:flex;just
 
       <div class="projects">
 
-        <a class="card" href="https://www.roblox.com/games/95799001413021/Build-A-Barrier" target="_blank" rel="noopener">
-          <img class="shot" src="build-a-barrier.jpg" alt="A Build A Barrier match in progress: two players on a 9×9 grid with fences placed between squares" loading="lazy" width="1114" height="696">
+        <article class="card" data-project="build-a-barrier">
+          <img class="shot" src="build-a-barrier.jpg" alt="" loading="lazy" width="1114" height="696">
           <div class="card-body">
-            <h3>Build A Barrier</h3>
+            <h3><button class="card-open" type="button" aria-haspopup="dialog">Build A Barrier</button></h3>
             <p class="when">May 2026 – present · Roblox</p>
             <p class="what">A multiplayer wall-and-path strategy game on a 9×9 grid. Matchmaking, timers, and move validation all run on the server, and BFS pathfinding rejects any wall that would trap a player. Past 3M plays and $1K a month in revenue.</p>
             <div class="tags">
               <span class="tag">Luau</span><span class="tag">Roblox Studio</span>
               <span class="tag">DataStoreService</span><span class="tag">RemoteEvents</span>
             </div>
+            <p class="open-hint">See screenshots and details</p>
           </div>
-        </a>
+        </article>
 
-        <a class="card" href="https://devpost.com/software/musketeer-8qd3lu" target="_blank" rel="noopener">
-          <img class="shot" src="musketeer.jpg" alt="Musketeer graph view: teams drawn as clusters, with lines showing who has talked and who does similar work" loading="lazy" width="1600" height="1000">
+        <article class="card" data-project="musketeer">
+          <img class="shot" src="musketeer.jpg" alt="" loading="lazy" width="1600" height="1000">
           <div class="card-body">
-            <h3>Musketeer</h3>
+            <h3><button class="card-open" type="button" aria-haspopup="dialog">Musketeer</button></h3>
             <p class="when">Sep 2026 · HackGT 13 · Team of four</p>
             <p class="what">When a task lands in email or Slack, Musketeer pulls out the skills it needs and pings coworkers who recently solved something similar. Managers get a live connection map that flags isolated employees and suggests groups.</p>
             <div class="tags">
               <span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">PostgreSQL + pgvector</span>
               <span class="tag">Contriever</span><span class="tag">Slack Bolt</span><span class="tag">D3.js</span>
             </div>
+            <p class="open-hint">See screenshots and details</p>
           </div>
-        </a>
+        </article>
 
-        <a class="card" href="https://devpost.com/software/presentai" target="_blank" rel="noopener">
-          <img class="shot" src="plum.jpg" alt="Plum feedback view: a speech timeline color-coded by agent, with a generated clip showing an improved gesture" loading="lazy" width="747" height="467">
+        <article class="card" data-project="plum">
+          <img class="shot" src="plum.jpg" alt="" loading="lazy" width="747" height="467">
           <div class="card-body">
-            <h3>Plum</h3>
+            <h3><button class="card-open" type="button" aria-haspopup="dialog">Plum</button></h3>
             <p class="when">Nov 2025 · AI ATL 25 · AI public speaking coach</p>
             <p class="what">Upload a recording and four Gemini agents score speech, gesture, and content, then merge into one timeline that marks the weak moments. Each flagged moment gets a generated clip showing the better version.</p>
             <div class="tags">
               <span class="tag">FastAPI</span><span class="tag">Gemini 2.5 Pro</span>
               <span class="tag">Veo 3</span><span class="tag">FFmpeg</span><span class="tag">React</span>
             </div>
+            <p class="open-hint">See screenshots and details</p>
           </div>
-        </a>
+        </article>
 
-        <div class="card">
-          <img class="shot" src="subspective.png" alt="Three Subspective screens: the title menu, a submarine dodging an iceberg, and a boat steering away from a falling obstacle" loading="lazy" width="1600" height="1000">
+        <article class="card" data-project="subspective">
+          <img class="shot" src="subspective.png" alt="" loading="lazy" width="1600" height="1000">
           <div class="card-body">
-            <h3>Subspective</h3>
+            <h3><button class="card-open" type="button" aria-haspopup="dialog">Subspective</button></h3>
             <p class="when">Jul 2025 · Mobile game</p>
             <p class="what">A pixel-art Android game where you pilot a submarine and a boat around icebergs and falling hazards. Over 5,000 lines of C# covering collision detection and obstacle generation, with all art drawn in one fixed palette over parallax-scrolling backgrounds.</p>
             <div class="tags">
               <span class="tag">C#</span><span class="tag">Unity</span><span class="tag">Unity 2D Physics</span><span class="tag">Android</span>
             </div>
+            <p class="open-hint">See screenshots and details</p>
           </div>
-        </div>
-
+        </article>
 
       </div>
     </div>
@@ -449,5 +576,261 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.85rem;display:flex;just
   </section>
 
 </main>
+
+<dialog class="panel" id="panel" aria-labelledby="panel-title">
+ <div class="panel-inner">
+  <header class="panel-head">
+    <div>
+      <div class="panel-title-row">
+        <h2 id="panel-title"></h2>
+        <div class="panel-links" id="panel-links"></div>
+      </div>
+      <p class="panel-meta" id="panel-meta"></p>
+    </div>
+    <button class="panel-close" id="panel-close" type="button" aria-label="Close project details">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>
+    </button>
+  </header>
+
+  <div class="slider" id="slider" aria-roledescription="carousel" aria-label="Screenshots">
+    <div class="track" id="track" tabindex="0"></div>
+    <button class="slide-nav prev" id="prev" type="button" aria-label="Previous screenshot">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4L6 9l5 5"/></svg>
+    </button>
+    <button class="slide-nav next" id="next" type="button" aria-label="Next screenshot">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l5 5-5 5"/></svg>
+    </button>
+  </div>
+  <div class="slider-foot">
+    <p class="caption" id="caption" aria-live="polite"></p>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="panel-body">
+    <div class="panel-text" id="panel-text"></div>
+    <aside class="facts" id="panel-facts"></aside>
+  </div>
+ </div>
+</dialog>
+
+<script>
+(() => {
+  const PROJECTS = {
+    "build-a-barrier": {
+      title: "Build A Barrier",
+      meta: "Roblox multiplayer strategy game · May 2026 – present",
+      links: [{ label: "Play on Roblox", href: "https://www.roblox.com/games/95799001413021/Build-A-Barrier" }],
+      slideBg: "#dfe8f0",
+      images: [
+        { src: "gallery/bab-1.jpg", caption: "A match in progress. Each player races for the far side of the board while fencing in their opponent." },
+        { src: "gallery/bab-2.jpg", caption: "The lobby. Several boards run matches at once, and players step onto a pad to join the next open one." }
+      ],
+      body: `
+        <p>Build A Barrier is my take on the board game Quoridor, built for Roblox. Two players start on opposite sides of a 9×9 board. Each turn you either move one square or drop a wall, and the first to reach the far side wins. Walls can slow your opponent down, but they can never seal anyone in completely.</p>
+        <p>The game is live. It has reached 50K daily active users, 1,100 concurrent players at its peak, and more than 3M plays, and in-game purchases bring in over $1K a month.</p>
+        <h3>What I built</h3>
+        <ul>
+          <li>Server-authoritative matchmaking and game state. The server validates every move, runs the turn timers, and hosts many matches at once.</li>
+          <li>BFS pathfinding on the 9×9 grid that rejects any wall leaving either player without a route to their goal.</li>
+          <li>Drag-and-drop wall placement, plus move feedback that rates each turn by how much it changes both players' shortest paths, with sound, screen shake, and animation for the best moves.</li>
+          <li>Anti-farming rules for rewards: a minimum number of moves per match, diminishing returns against the same opponent, and a required number of walls placed.</li>
+          <li>A wall cosmetics shop with dynamic pricing through MarketplaceService, and a server switcher in the lobby.</li>
+          <li>Session-time analysis in Roblox Analytics to measure how each update changed how long people play.</li>
+        </ul>`,
+      numbers: [["50K", "daily active users"], ["1,100", "peak concurrent players"], ["3M+", "plays"], ["$1K+", "monthly revenue"]],
+      facts: [["Platform", "Roblox, desktop and mobile"]],
+      stack: ["Luau", "Roblox Studio", "DataStoreService", "RemoteEvents", "MarketplaceService", "Roblox Analytics"]
+    },
+
+    "musketeer": {
+      title: "Musketeer",
+      meta: "HackGT 13 · Sep 2026 · Team of four",
+      links: [
+        { label: "View on Devpost", href: "https://devpost.com/software/musketeer-8qd3lu" },
+        { label: "Code", href: "https://github.com/anthony-novokshanov/Musketeer" }
+      ],
+      slideBg: "#eceef2",
+      images: [
+        { src: "gallery/musketeer-1.jpg", caption: "Graph view. Each team is a cluster, and the lines show who has talked and who does similar work." },
+        { src: "gallery/musketeer-2.jpg", caption: "Zoomed in on two teams. Dashed lines are pending intros, and the yellow dot marks someone with a new task and no connection yet." },
+        { src: "gallery/musketeer-3.jpg", caption: "Clicking a person opens a summary of their recent work and a ranked list of coworkers doing similar work." },
+        { src: "gallery/musketeer-4.jpg", caption: "Synopsis: connections made, how many were rated helpful, the time from task to intro, and missed opportunities." },
+        { src: "gallery/musketeer-5.jpg", caption: "Teams, sorted by most isolated, so a manager can see which teams work alone." },
+        { src: "gallery/musketeer-6.jpg", caption: "Settings: which inboxes and tools to read, how eager the classifier is, and a weekly cap so no expert gets swamped." }
+      ],
+      body: `
+        <p>Musketeer finds the coworker who just solved the problem you're about to start. When a new task arrives by email or Slack, it works out which skills the task needs, finds people who recently did similar work, and suggests an introduction in Slack. The expert accepts with one tap before any chat is opened.</p>
+        <p>Managers get a live map of who talks to whom across the company, alerts for people who have become isolated, automatic grouping, and analytics on how well the connections are working.</p>
+        <h3>How it works</h3>
+        <ul>
+          <li>Meta's Muse Spark detects new tasks in Gmail and Slack and extracts the skills each one needs.</li>
+          <li>Meta FAIR's Contriever handles semantic retrieval, matching a task against everyone's past work.</li>
+          <li>An expertise graph lives in PostgreSQL with TimescaleDB and pgvector. A decay model in SQL and NumPy makes recent work count more than old work.</li>
+          <li>Slack Bolt sends the intros, and the Google Calendar and Gmail APIs handle scheduling and task detection.</li>
+          <li>The dashboard is React and TypeScript, with D3.js for the graph and Recharts for the analytics.</li>
+        </ul>`,
+      facts: [["Event", "HackGT 13"], ["Team", "Four people"]],
+      stack: ["Python", "FastAPI", "React", "TypeScript", "PostgreSQL", "TimescaleDB", "pgvector", "Contriever", "PyTorch", "Slack Bolt", "D3.js", "Recharts"]
+    },
+
+    "plum": {
+      title: "Plum",
+      meta: "AI ATL 25 · Nov 2025 · AI public speaking coach",
+      links: [{ label: "View on Devpost", href: "https://devpost.com/software/presentai" }],
+      slideBg: "#1f1c2f",
+      images: [
+        { src: "gallery/plum-1.jpg", caption: "Upload a talk as an .mp4, with optional slides or a script and a line of context." },
+        { src: "gallery/plum-2.jpg", caption: "Each agent marks moments on its own track of the timeline. Hovering a flagged moment plays a generated clip of the better gesture." },
+        { src: "gallery/plum-3.jpg", caption: "Plum also writes the follow-up questions an audience would likely ask about the talk." }
+      ],
+      body: `
+        <p>Plum is an AI public speaking coach. You upload a recording of a talk, and it shows you exactly where it went wrong and how to do it better.</p>
+        <p>Four Gemini 2.5 Pro agents review the recording at once, covering speech, gestures, and content. Their notes merge into one annotated timeline, so every weak moment has a timestamp, a severity, and a concrete fix. For gesture problems, Plum generates a short Veo 3 clip that demonstrates the better version.</p>
+        <h3>What I built</h3>
+        <ul>
+          <li>A Python and FastAPI backend that runs the four agents and merges their output into the timeline.</li>
+          <li>Veo 3 clip generation for each flagged gesture.</li>
+          <li>An asynchronous job queue with status polling, so long analyses don't block the page, and FFmpeg processing for uploads up to 500 MB.</li>
+        </ul>`,
+      facts: [["Event", "AI ATL 25 hackathon"]],
+      stack: ["Python", "FastAPI", "React", "Gemini 2.5 Pro", "Google Veo 3", "FFmpeg"]
+    },
+
+    "subspective": {
+      title: "Subspective",
+      meta: "Android game · Jul 2025",
+      links: [],
+      slideBg: "#2e4280",
+      pixel: true,
+      ratioSm: "4/5",
+      images: [
+        { src: "gallery/subspective-1.png", caption: "Promo art. Everything in the game is drawn in one fixed palette." },
+        { src: "gallery/subspective-2.png", caption: "Title screen with the saved high score." },
+        { src: "gallery/subspective-3.png", caption: "Underwater, seen from the side: the submarine dodges icebergs." },
+        { src: "gallery/subspective-4.png", caption: "On the surface, seen from above: you steer a boat with the on-screen joystick." },
+        { src: "gallery/subspective-5.png", caption: "A warning appears just before an obstacle drops in." },
+        { src: "gallery/subspective-6.png", caption: "The crash screen, with your score and a new high score." }
+      ],
+      body: `
+        <p>Subspective is a pixel-art mobile game about dodging icebergs from two angles: a side view of a submarine underwater and a top-down view of a boat on the surface.</p>
+        <p>I wrote over 5,000 lines of C# for it in Unity, and I drew all of the art myself in one standardized palette.</p>
+        <h3>What I built</h3>
+        <ul>
+          <li>Collision detection and the algorithms that generate obstacles as you play.</li>
+          <li>Parallax-scrolling backgrounds that give the flat pixel art a sense of depth.</li>
+          <li>Touch controls built for phones, with an on-screen joystick and action button, plus saved high scores.</li>
+        </ul>`,
+      facts: [["Platform", "Android"]],
+      stack: ["C#", "Unity", "Unity 2D Physics", "Android"]
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  const dialog = $("panel"), track = $("track"), slider = $("slider"), dots = $("dots");
+  const ext = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 2.5h6v6M11.5 2.5L3 11"/></svg>';
+  let current = null, index = 0, opener = null;
+
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function render(key) {
+    const p = PROJECTS[key];
+    current = p; index = 0;
+    $("panel-title").textContent = p.title;
+    $("panel-meta").textContent = p.meta;
+    $("panel-links").innerHTML = p.links.map((l, i) =>
+      `<a class="panel-link${i === 0 ? " primary" : ""}" href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)}${ext}</a>`).join("");
+
+    slider.style.setProperty("--slide-bg", p.slideBg);
+    slider.style.setProperty("--ratio", p.ratio || "16/10");
+    if (p.ratioSm) slider.style.setProperty("--ratio-sm", p.ratioSm); else slider.style.removeProperty("--ratio-sm");
+    slider.classList.toggle("pixel", !!p.pixel);
+    slider.classList.toggle("single", p.images.length < 2);
+
+    track.innerHTML = p.images.map((im, i) =>
+      `<figure class="slide" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${p.images.length}">
+         <img src="${esc(im.src)}" alt="${esc(im.caption)}" ${i > 0 ? 'loading="lazy"' : ""} decoding="async">
+       </figure>`).join("");
+    dots.innerHTML = p.images.length < 2 ? "" : p.images.map((_, i) =>
+      `<button class="dot" type="button" aria-label="Show screenshot ${i + 1}"></button>`).join("");
+    dots.querySelectorAll(".dot").forEach((d, i) => d.addEventListener("click", () => go(i)));
+
+    $("panel-text").innerHTML = p.body;
+    let facts = "<dl>";
+    if (p.numbers) facts += `<dt>By the numbers</dt><dd class="numbers">${p.numbers.map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("")}</dd>`;
+    (p.facts || []).forEach(([k, v]) => facts += `<dt>${k}</dt><dd>${v}</dd>`);
+    facts += `<dt>Built with</dt><dd class="tags">${p.stack.map(t => `<span class="tag">${t}</span>`).join("")}</dd></dl>`;
+    $("panel-facts").innerHTML = facts;
+
+    track.scrollTo({ left: 0, behavior: "instant" });
+    update();
+  }
+
+  function update() {
+    const n = current.images.length;
+    $("caption").textContent = (n > 1 ? `${index + 1} / ${n} · ` : "") + current.images[index].caption;
+    const focused = document.activeElement;
+    $("prev").disabled = index === 0;
+    $("next").disabled = index === n - 1;
+    // a button that just became disabled drops focus; hand it to the other arrow
+    if (focused && focused.disabled) (focused.id === "next" ? $("prev") : $("next")).focus({ preventScroll: true });
+    dots.querySelectorAll(".dot").forEach((d, i) => d.setAttribute("aria-current", i === index ? "true" : "false"));
+  }
+
+  function go(i) {
+    const n = current.images.length;
+    index = Math.max(0, Math.min(n - 1, i));
+    track.scrollTo({ left: index * track.clientWidth });
+    update();
+  }
+
+  let scrollTimer;
+  track.addEventListener("scroll", () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      if (i !== index) { index = i; update(); }
+    }, 60);
+  }, { passive: true });
+
+  $("prev").addEventListener("click", () => go(index - 1));
+  $("next").addEventListener("click", () => go(index + 1));
+
+  function open(key, fromEl) {
+    if (!PROJECTS[key]) return;
+    opener = fromEl || null;
+    render(key);
+    document.documentElement.classList.add("panel-open");
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+    $("panel-close").focus();
+    history.replaceState(null, "", "#" + key);
+  }
+
+  function close() { if (dialog.open) dialog.close(); }
+
+  dialog.addEventListener("close", () => {
+    document.documentElement.classList.remove("panel-open");
+    history.replaceState(null, "", location.pathname + location.search);
+    if (opener) opener.focus();
+  });
+  $("panel-close").addEventListener("click", close);
+  dialog.addEventListener("click", e => { if (e.target === dialog) close(); });
+  document.addEventListener("keydown", e => {
+    if (!dialog.open) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
+  });
+  window.addEventListener("resize", () => { if (dialog.open) track.scrollTo({ left: index * track.clientWidth, behavior: "instant" }); });
+
+  document.querySelectorAll(".card[data-project]").forEach(card => {
+    const btn = card.querySelector(".card-open");
+    btn.addEventListener("click", e => { e.stopPropagation(); open(card.dataset.project, btn); });
+    card.addEventListener("click", () => open(card.dataset.project, btn));
+  });
+
+  const fromHash = location.hash.slice(1);
+  if (PROJECTS[fromHash]) open(fromHash);
+})();
+</script>
 </body>
 </html>
