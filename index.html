@@ -623,7 +623,8 @@ html.panel-open{overflow:hidden}
       slideBg: "#dfe8f0",
       images: [
         { src: "gallery/bab-1.jpg", caption: "A match in progress. Each player races for the far side of the board while fencing in their opponent." },
-        { src: "gallery/bab-2.jpg", caption: "The lobby. Several boards run matches at once, and players step onto a pad to join the next open one." }
+        { src: "gallery/bab-2.jpg", caption: "The lobby. Several boards run matches at once, and players step onto a pad to join the next open one." },
+        { src: "gallery/bab-3.jpg", caption: "Roblox analytics over the last 7 days: about 21K daily active users, 11.5K new players a day, and 12 minutes of average playtime." }
       ],
       body: `
         <p>Build A Barrier is my take on the board game Quoridor, built for Roblox. Two players start on opposite sides of a 9×9 board. Each turn you either move one square or drop a wall, and the first to reach the far side wins. Walls can slow your opponent down, but they can never seal anyone in completely.</p>
@@ -803,14 +804,14 @@ html.panel-open{overflow:hidden}
     if (!dialog.open) dialog.showModal();
     dialog.scrollTop = 0;
     $("panel-close").focus();
-    history.replaceState(null, "", "#" + key);
+    try { history.replaceState(null, "", "#" + key); } catch (e) {}
   }
 
   function close() { if (dialog.open) dialog.close(); }
 
   dialog.addEventListener("close", () => {
     document.documentElement.classList.remove("panel-open");
-    history.replaceState(null, "", location.pathname + location.search);
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
     if (opener) opener.focus();
   });
   $("panel-close").addEventListener("click", close);
