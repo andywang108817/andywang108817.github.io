@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Andy Wang — Software Engineer</title>
-<meta name="description" content="Computer Science at Georgia Tech. I build multiplayer games and AI tooling, including a Roblox strategy game played 3M+ times.">
+<meta name="description" content="Computer Science at Georgia Tech. I build multiplayer games and AI tooling, with 4M+ users across what I've shipped.">
 <meta name="theme-color" content="#f6f7f5">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:96px}
 body{
-  margin:0;
+  margin:0;overflow-x:clip;
   background:var(--paper);
   color:var(--ink);
   font-family:var(--body);
@@ -56,7 +56,7 @@ img{max-width:100%;display:block}
   border-radius:999px;
 }
 .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-weight:600;letter-spacing:-.02em;text-decoration:none;font-size:1rem}
-.brand .avatar{width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--accent);color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.02em}
+.brand .avatar{width:30px;height:30px;border-radius:50%;flex:none;object-fit:cover;background:var(--accent-soft)}
 .nav-links{margin-left:auto;display:flex;align-items:center;gap:.25rem}
 .nav-links a{
   text-decoration:none;color:var(--muted);font-size:.9rem;font-weight:500;
@@ -82,7 +82,7 @@ img{max-width:100%;display:block}
 
 /* ---------- hero ---------- */
 .hero{padding:150px 0 0}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:calc(var(--gap) * 1.4);align-items:center}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:calc(var(--gap) * 1.4);align-items:center}
 .hero h1{
   font-family:var(--display);
   font-size:clamp(3rem,8.5vw,6.4rem);
@@ -101,7 +101,26 @@ img{max-width:100%;display:block}
 .btn.primary:hover{background:var(--accent);border-color:var(--accent)}
 .btn.ghost{border-color:var(--rule);background:var(--surface)}
 .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
-.portrait{aspect-ratio:4/5;border-radius:14px}
+.portrait-wrap{margin:0}
+/* two-photo card stack: the back card peeks out, hover or tap shuffles them */
+.duo{position:relative;display:block;width:100%;aspect-ratio:4/5;padding:0;border:0;background:none;cursor:pointer;border-radius:14px}
+.duo:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.duo-card{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;
+  background:var(--accent-soft);
+  box-shadow:0 22px 44px -22px rgba(20,29,26,.55);
+  transform-origin:50% 90%;
+  transition:transform .7s cubic-bezier(.22,.8,.3,1),filter .7s ease,z-index 0s linear .28s;
+}
+.duo-card.a{z-index:2;transform:none}
+.duo-card.b{z-index:1;transform:translate(7%,2%) rotate(5deg) scale(.93);filter:saturate(.75) brightness(.94)}
+.duo.flipped .duo-card.a{z-index:1;transform:translate(-7%,2%) rotate(-5deg) scale(.93);filter:saturate(.75) brightness(.94)}
+.duo.flipped .duo-card.b{z-index:2;transform:none;filter:none}
+.duo-caption{position:relative;height:1.4em;margin-top:1rem;font-size:.85rem;color:var(--muted)}
+.duo-caption span{position:absolute;left:0;top:0;transition:opacity .35s ease,transform .35s ease}
+.duo-caption .cap-b{opacity:0;transform:translateY(6px)}
+.duo.flipped + .duo-caption .cap-a{opacity:0;transform:translateY(-6px)}
+.duo.flipped + .duo-caption .cap-b{opacity:1;transform:none}
 
 /* stats */
 .stats{
@@ -174,6 +193,7 @@ a.card:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .stack-col ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}
 .stack-col li{border:1px solid var(--rule);border-radius:999px;padding:.3rem .75rem;font-size:.83rem;color:var(--muted)}
 
+
 /* ---------- contact ---------- */
 .contact{
   margin-top:clamp(4.5rem,9vw,7.5rem);
@@ -198,7 +218,7 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.85rem;display:flex;just
 .reveal:nth-child(2){animation-delay:.08s}
 .hero .lede{animation-delay:.14s}
 .hero-cta{animation-delay:.2s}
-.hero .portrait{animation-delay:.26s}
+.hero .portrait-wrap{animation-delay:.26s}
 @keyframes rise{to{opacity:1;transform:none}}
 
 @media (prefers-reduced-motion:reduce){
@@ -210,7 +230,7 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.85rem;display:flex;just
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:2rem}
-  .portrait{max-width:280px}
+  .portrait-wrap{width:100%;max-width:300px;margin-inline:auto}
   .projects,.stack,.links{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr;border-top:0}
   .stat{border-right:0;border-top:1px solid var(--rule);padding:1.25rem 0}
@@ -354,7 +374,7 @@ html.panel-open{overflow:hidden}
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="#top">
-      <span class="avatar" aria-hidden="true">AW</span>
+      <img class="avatar" src="avatar.jpg" alt="" width="30" height="30">
       Andy Wang
     </a>
     <div class="nav-links">
@@ -374,26 +394,33 @@ html.panel-open{overflow:hidden}
       <div class="hero-grid">
         <div>
           <h1 class="reveal">Andy Wang</h1>
-          <p class="lede reveal">Computer science at Georgia Tech, class of 2028. I build applied AI systems and production software: LLM-based quality control for clinical deliverables at Bristol Myers Squibb, and a server-authoritative multiplayer game with 50K daily players.</p>
+          <p class="lede reveal">Computer Science at Georgia Tech</p>
           <div class="hero-cta reveal">
             <a class="btn primary" href="#projects">See the projects</a>
             <a class="btn ghost" href="mailto:awang760@gatech.edu">Email me</a>
           </div>
         </div>
+        <figure class="portrait-wrap reveal">
+          <button class="duo" id="duo" type="button" aria-pressed="false" aria-label="Switch between two photos of Andy">
+            <img class="duo-card a" src="portrait.jpg" alt="Andy Wang in a dark suit, standing on a striped lawn with trees behind him" width="960" height="1200">
+            <img class="duo-card b" src="climbing.jpg" alt="Andy mid-move on a bouldering wall, one hand on the top hold and his body swinging out" width="698" height="872">
+          </button>
+          <figcaption class="duo-caption" aria-live="polite"><span class="cap-a">Dressed up</span><span class="cap-b">On the wall</span></figcaption>
+        </figure>
       </div>
 
       <div class="stats">
         <div class="stat">
-          <b>3M+</b>
-          <span>Plays across shipped games</span>
+          <b>4M+</b>
+          <span>Users</span>
         </div>
         <div class="stat">
-          <b>50K</b>
-          <span>Daily active players at peak</span>
+          <b>4+</b>
+          <span>Projects shipped</span>
         </div>
         <div class="stat">
-          <b>35%</b>
-          <span>Manual QC time removed at BMS</span>
+          <b>100+ hrs</b>
+          <span>Spent debugging</span>
         </div>
       </div>
     </div>
@@ -414,7 +441,7 @@ html.panel-open{overflow:hidden}
           <div class="card-body">
             <h3><button class="card-open" type="button" aria-haspopup="dialog">Build A Barrier</button></h3>
             <p class="when">May 2026 – present · Roblox</p>
-            <p class="what">A multiplayer wall-and-path strategy game on a 9×9 grid. Matchmaking, timers, and move validation all run on the server, and BFS pathfinding rejects any wall that would trap a player. Past 3M plays and $1K a month in revenue.</p>
+            <p class="what">A multiplayer wall-and-path strategy game on a 9×9 grid. Matchmaking, timers, and move validation all run on the server, and BFS pathfinding rejects any wall that would trap a player. Past 4M plays and $1K a month in revenue.</p>
             <div class="tags">
               <span class="tag">Luau</span><span class="tag">Roblox Studio</span>
               <span class="tag">DataStoreService</span><span class="tag">RemoteEvents</span>
@@ -577,6 +604,20 @@ html.panel-open{overflow:hidden}
 
 </main>
 
+<script>
+(() => {
+  const duo = document.getElementById("duo");
+  if (!duo) return;
+  let lastPointer = "";
+  const set = on => { duo.classList.toggle("flipped", on); duo.setAttribute("aria-pressed", on ? "true" : "false"); };
+  duo.addEventListener("pointerdown", e => { lastPointer = e.pointerType; });
+  duo.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") set(true); });
+  duo.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") set(false); });
+  // touch taps and keyboard presses toggle; a mouse already flipped it on hover
+  duo.addEventListener("click", () => { if (lastPointer !== "mouse") set(!duo.classList.contains("flipped")); lastPointer = ""; });
+})();
+</script>
+
 <dialog class="panel" id="panel" aria-labelledby="panel-title">
  <div class="panel-inner">
   <header class="panel-head">
@@ -628,7 +669,7 @@ html.panel-open{overflow:hidden}
       ],
       body: `
         <p>Build A Barrier is my take on the board game Quoridor, built for Roblox. Two players start on opposite sides of a 9×9 board. Each turn you either move one square or drop a wall, and the first to reach the far side wins. Walls can slow your opponent down, but they can never seal anyone in completely.</p>
-        <p>The game is live. It has reached 50K daily active users, 1,100 concurrent players at its peak, and more than 3M plays, and in-game purchases bring in over $1K a month.</p>
+        <p>The game is live. It has reached 50K daily active users, 1,100 concurrent players at its peak, and more than 4M plays, and in-game purchases bring in over $1K a month.</p>
         <h3>What I built</h3>
         <ul>
           <li>Server-authoritative matchmaking and game state. The server validates every move, runs the turn timers, and hosts many matches at once.</li>
@@ -638,7 +679,7 @@ html.panel-open{overflow:hidden}
           <li>A wall cosmetics shop with dynamic pricing through MarketplaceService, and a server switcher in the lobby.</li>
           <li>Session-time analysis in Roblox Analytics to measure how each update changed how long people play.</li>
         </ul>`,
-      numbers: [["50K", "daily active users"], ["1,100", "peak concurrent players"], ["3M+", "plays"], ["$1K+", "monthly revenue"]],
+      numbers: [["50K", "daily active users"], ["1,100", "peak concurrent players"], ["4M+", "plays"], ["$1K+", "monthly revenue"]],
       facts: [["Platform", "Roblox, desktop and mobile"]],
       stack: ["Luau", "Roblox Studio", "DataStoreService", "RemoteEvents", "MarketplaceService", "Roblox Analytics"]
     },
